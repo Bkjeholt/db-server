@@ -24,6 +24,10 @@ services:
       - MYSQL_DATABASE=db
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=asfRA-456RfGH-TrY67GhjF
-
+  phpmyadmin:
+    image: bkjeholt/phpmyadmin:latest-rpi
+    restart: always
+    link: mysql:db
+    port: 8080:80
 volumes:
   mysql_data: 
