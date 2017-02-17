@@ -1,33 +1,37 @@
 # ************************************************************************
 # Product    : Home information and control
-# Date       : 2017-01-18
+# Date       : 2017-02-17
 # Copyright  : Copyright (C) 2016-2017 Kjeholt Engineering. All rights reserved.
 # Contact    : dev@kjeholt.se
 # Url        : http://www-dev.kjeholt.se
 # Licence    : ---
 # -------------------------------------------------------------------------
-# File       : mysql/docker-compose.yml
-# Version    : 1.0.0
+# File       : mysql/rpi/docker-compose.yml
+# Version    : 1.1.0
 # Author     : Bjorn Kjeholt
 # *************************************************************************
 
 version: '2'
 
 services:
-  mysql:
-    image: bkjeholt/mysql:latest
+  db:
+    image: hypriot/rpi-mysql:latest
     volumes:
-      - mysql_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=Rft5-667g-3drTR-44DFv
-      - MYSQL_DATABASE=db
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=asfRA-456RfGH-TrY67GhjF
+      MYSQL_ROOT_PASSWORD: Rft5-667g-3drTR-44DFv
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: asfRA-456RfGH-TrY67GhjF
   phpmyadmin:
+    depends_on:
+      - db
     image: bkjeholt/phpmyadmin:latest-rpi
     restart: always
-    link: mysql:db
-    port: 8080:80
+    links: 
+      - db:db
+    ports: 
+      - "33001:80"
 volumes:
-  mysql_data: 
+  db_data: 
