@@ -16,6 +16,8 @@ version: '2.1'
 services:
   mysql:
     image: hypriot/rpi-mysql:latest
+    ports:
+      - "${MYSQL_PORT_NO}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     restart: always
