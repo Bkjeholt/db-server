@@ -1,0 +1,39 @@
+# ************************************************************************
+# Product    : Home information and control
+# Date       : 2017-02-23
+# Copyright  : Copyright (C) 2017 Kjeholt Engineering. All rights reserved.
+# Contact    : dev@kjeholt.se
+# Url        : http://www-dev.kjeholt.se
+# Licence    : ---
+# -------------------------------------------------------------------------
+# File       : mysql/docker-compose-x86.yml
+# Version    : 1.3.0
+# Author     : Bjorn Kjeholt
+# *************************************************************************
+
+version: '2.1'
+
+services:
+  db:
+    image: bkjeholt/db-server:dev-x86
+    ports:
+      - "${DBS_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DBS_ROOT_PASSWORD}
+      MYSQL_DATABASE: db
+
+  phpmyadmin:
+    image: bkjeholt/phpmyadmin:latest-x86
+    depends_on:
+      - mysql
+    restart: always
+    links: 
+      - db:db
+    ports: 
+      - "${PMA_PORT_NO}:80"
+
+volumes:
+  db_data: 
