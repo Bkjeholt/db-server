@@ -2,8 +2,8 @@ FROM alpine:latest
 MAINTAINER Bjorn Kjeholt <dev@kjeholt.se>
 
 RUN mkdir /scripts
-WORKDIR /app
-VOLUME /app
+WORKDIR /var/lib/mysql
+VOLUME /var/lib/mysql
 COPY Scripts/ /scripts/
 
 RUN apk add --update mysql mysql-client vim && \
