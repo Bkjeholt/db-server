@@ -1,5 +1,10 @@
 # mysql
 
+## Revision information
+### 0.3 Revision
+- Moves from mysql to a mariadb database image.
+- Adapted to the docker health check functionality, indicating that the container are up and running.
+
 ## The deamon
 There are two execution environments supported.
 
