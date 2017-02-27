@@ -1,5 +1,5 @@
 FROM mysql
 
-COPY docker-healthcheck /usr/local/bin/
+COPY Scripts/docker-healthcheck /usr/local/bin/
 
 HEALTHCHECK CMD ["docker-healthcheck"]
