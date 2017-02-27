@@ -28,7 +28,8 @@ services:
   phpmyadmin:
     image: bkjeholt/phpmyadmin:latest-x86
     depends_on:
-      - mysql
+      db:
+        condition: service_healthy
     restart: always
     links: 
       - db:db
