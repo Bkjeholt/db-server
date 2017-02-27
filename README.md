@@ -14,7 +14,7 @@ docker run -d \
            --env MYSQL_DATABASE=hic \
            --env MYSQL_USER=admin \
            --env MYSQL_PASSWORD=akfjaaja34ffgtF \
-           -v mysql-hic-data-vol:/var/lib/mysql \
+           -v db-data:/var/lib/mysql \
            --restart=always \
            -p 3306:3306 \
            bkjeholt/db-server:<Applicable tag>
@@ -23,5 +23,5 @@ docker run -d \
 ## create a volume to use
 This is independent of the marget machine architecture
 ```
-docker volume create --name=mysql-hic-data-vol
+docker volume create --name=db-data
 ```
