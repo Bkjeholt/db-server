@@ -1,5 +1,15 @@
-FROM mysql:5.7
+FROM alpine:latest
+MAINTAINER Bjorn Kjeholt <dev@kjeholt.se>
 
-COPY Scripts/docker-healthcheck /usr/local/bin/
+RUN mkdir /scripts
+WORKDIR /app
+VOLUME /app
+COPY Scripts/ /scripts/
 
-HEALTHCHECK CMD ["docker-healthcheck"]
+RUN apk add --update mysql mysql-client vim && \
+    rm -f /var/cache/apk/*
+COPY my.cnf /etc/mysql/my.cnf
+
+EXPOSE 3306
+HEALTHCHECK CMD ["/scripts/docker-healthcheck"]
+CMD ["/scripts/startup.sh"]
