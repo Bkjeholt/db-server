@@ -1,4 +1,4 @@
-FROM mysql
+FROM mysql:5.7
 
 COPY Scripts/docker-healthcheck /usr/local/bin/
 
