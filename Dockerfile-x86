@@ -8,7 +8,7 @@ COPY Scripts/ /scripts/
 
 RUN apk add --update mysql mysql-client vim && \
     rm -f /var/cache/apk/*
-COPY my.cnf /etc/mysql/my.cnf
+COPY dbConfigs/my.cnf /etc/mysql/my.cnf
 
 EXPOSE 3306
 HEALTHCHECK CMD ["/scripts/docker-healthcheck"]
