@@ -11,7 +11,7 @@
 # Author     : Bjorn Kjeholt
 # *************************************************************************
  
-FROM kutsudock/rpi-alpine
+FROM armhf/alpine:3.4
 
 MAINTAINER Bjorn Kjeholt <dev@kjeholt.se>
 
