@@ -1,0 +1,35 @@
+# ************************************************************************
+# Product    : Home information and control
+# Date       : 2017-01-10
+# Copyright  : Copyright (C) 2016-2017 Kjeholt Engineering. All rights reserved.
+# Contact    : dev@kjeholt.se
+# Url        : http://www-dev.kjeholt.se
+# Licence    : ---
+# -------------------------------------------------------------------------
+# File       : base-node-js-iamge/Dockerfile-rpi
+# Version    : 1.1.0
+# Author     : Bjorn Kjeholt
+# *************************************************************************
+ 
+FROM kutsudock/rpi-alpine
+
+MAINTAINER Bjorn Kjeholt <dev@kjeholt.se>
+
+RUN mkdir /scripts
+WORKDIR /var/lib/mysql
+VOLUME /var/lib/mysql
+COPY Scripts/ /scripts/
+
+RUN apk add --update mysql mysql-client vim && \
+    rm -f /var/cache/apk/*
+COPY dbConfigs/my.cnf /etc/mysql/my.cnf
+
+ARG DOCKER_IMAGE_NAME
+ARG DOCKER_IMAGE_TAG
+
+ENV DOCKER_IMAGE_NAME ${DOCKER_IMAGE_NAME:-UnknownName}
+ENV DOCKER_IMAGE_TAG ${DOCKER_IMAGE_TAG:-UnknownRevision}
+
+EXPOSE 3306
+HEALTHCHECK CMD ["/scripts/docker-healthcheck"]
+CMD ["/scripts/startup.sh"]
