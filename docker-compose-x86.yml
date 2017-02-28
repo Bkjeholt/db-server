@@ -13,9 +13,15 @@
 
 version: '2.1'
 
+env_file:
+  - system.env
+  
 services:
   db:
-    image: bkjeholt/db-server:dev-x86
+    env_file:
+      - mysql.env
+      - port_map.env
+    image: bkjeholt/db-server:dev-${ARCHITECTURE}
     ports:
       - "${DBS_PORT}:3306"
     volumes:
@@ -26,7 +32,9 @@ services:
       MYSQL_DATABASE: db
 
   phpmyadmin:
-    image: bkjeholt/phpmyadmin:latest-x86
+    env_file:
+      - port_map.env
+    image: bkjeholt/phpmyadmin:latest-${ARCHITECTURE}
     depends_on:
       db:
         condition: service_healthy
