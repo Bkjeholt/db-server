@@ -14,13 +14,12 @@
 version: '2.1'
 
 env_file:
-  - system.env
+  - ./config/system.env
+  - ./config/port_map.env
+  - ./config/mysql.env
   
 services:
   db:
-    env_file:
-      - mysql.env
-      - port_map.env
     image: bkjeholt/db-server:dev-${ARCHITECTURE}
     ports:
       - "${DBS_PORT}:3306"
@@ -32,8 +31,6 @@ services:
       MYSQL_DATABASE: db
 
   phpmyadmin:
-    env_file:
-      - port_map.env
     image: bkjeholt/phpmyadmin:latest-${ARCHITECTURE}
     depends_on:
       db:
