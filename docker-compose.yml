@@ -15,7 +15,6 @@ version: '2.1'
 
 env_file:
   - ./config/system.env
-  - ./config/port_map.env
   - ./config/mysql.env
   
 services:
@@ -30,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DBS_ROOT_PASSWORD}
       MYSQL_DATABASE: db
 
-  phpmyadmin:
+  pma:
     image: bkjeholt/phpmyadmin:latest-${ARCHITECTURE}
     depends_on:
       db:
