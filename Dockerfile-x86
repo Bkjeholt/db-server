@@ -1,14 +1,16 @@
 FROM alpine:latest
 MAINTAINER Bjorn Kjeholt <dev@kjeholt.se>
 
-RUN mkdir /scripts
+RUN apk add --update mysql mysql-client bash vim && \
+    rm -f /var/cache/apk/* && \
+    mkdir /scripts
+
 WORKDIR /var/lib/mysql
 VOLUME /var/lib/mysql
 COPY Scripts/ /scripts/
 
-RUN apk add --update mysql mysql-client bash vim && \
-    rm -f /var/cache/apk/* && \
-    chmod 755 /scripts/*
+RUN chmod 755 /scripts/*
+
 
 COPY dbConfigs/my.cnf /etc/mysql/my.cnf
 
@@ -19,5 +21,5 @@ ENV DOCKER_IMAGE_NAME ${DOCKER_IMAGE_NAME:-UnknownName}
 ENV DOCKER_IMAGE_TAG ${DOCKER_IMAGE_TAG:-UnknownRevision}
 
 EXPOSE 3306
-HEALTHCHECK CMD ["/scripts/docker-healthcheck"]
+HEALTHCHECK CMD ["/scripts/healthcheck.sh"]
 CMD ["/scripts/startup.sh"]
