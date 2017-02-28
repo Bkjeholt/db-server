@@ -26,8 +26,8 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DBS_ROOT_PASSWORD}
-      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
 
   pma:
     image: bkjeholt/phpmyadmin:latest-${ARCHITECTURE}
