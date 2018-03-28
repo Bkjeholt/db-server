@@ -1,17 +1,17 @@
 # ************************************************************************
 # Product    : Home information and control
-# Date       : 2017-02-23
-# Copyright  : Copyright (C) 2017 Kjeholt Engineering. All rights reserved.
+# Date       : 2018-03-28
+# Copyright  : Copyright (C) 2017-2018 Kjeholt Engineering. All rights reserved.
 # Contact    : dev@kjeholt.se
 # Url        : http://www-dev.kjeholt.se
 # Licence    : ---
 # -------------------------------------------------------------------------
 # File       : mysql/docker-compose-x86.yml
-# Version    : 1.3.0
+# Version    : 1.4.0
 # Author     : Bjorn Kjeholt
 # *************************************************************************
 
-version: '2.1'
+version: '3.4'
 
 env_file:
   - ./config/system.env
@@ -20,6 +20,7 @@ env_file:
 services:
   db:
     image: bkjeholt/db-server:dev-${ARCHITECTURE}
+    container_name: db
     ports:
       - "${DBS_PORT}:3306"
     volumes:
@@ -31,12 +32,14 @@ services:
       interval: 3s
       timeout: 1s
       retries: 5
+      start_period: 40s
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
 
   pma:
     image: bkjeholt/phpmyadmin:latest-${ARCHITECTURE}
+    container_name: pma
     depends_on:
       db:
         condition: service_healthy
